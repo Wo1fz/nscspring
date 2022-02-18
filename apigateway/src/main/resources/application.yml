@@ -1,0 +1,24 @@
+spring:
+  application:  
+    name: apigateway
+  cloud:
+    gateway:
+      routes:
+      - id: account-service
+        uri: lb://ACCOUNT-SERVICE
+        predicates:
+        - Path=/api/accounts/account/**
+        filters:
+        - StripPrefix=2
+      - id: consumer-service
+        uri: lb://CUSTOMER-SERVICE
+        predicates:
+        - Path=/api/customers/customer/**
+        filters:
+        - StripPrefix=2
+      - id: TODO-EUREKA-CLIENT
+        uri: lb://TODO-EUREKA-CLIENT
+        predicates:
+        - Path=/api/todos/**
+        filters:
+        - StripPrefix=1
